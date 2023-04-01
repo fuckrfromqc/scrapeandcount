@@ -1,7 +1,9 @@
+from flask import Flask, render_template, request
 import requests
 from bs4 import BeautifulSoup
-import sys
 import re
+
+app = Flask(__name__)
 
 def count_occurrences(url, search_text):
     response = requests.get(url)
@@ -11,12 +13,14 @@ def count_occurrences(url, search_text):
     matches = pattern.findall(text)
     return len(matches)
 
-if __name__ == "__main__":
-    if len(sys.argv) != 3:
-        print("Usage: python web_scraper.py [URL] [SEARCH_TEXT]")
-        sys.exit(1)
+@app.route('/', methods=['GET', 'POST'])
+def index():
+    count = None
+    if request.method == 'POST':
+        url = request.form['url']
+        search_text = request.form['search_text']
+        count = count_occurrences(url, search_text)
+    return render_template('index.html', count=count)
 
-    url = sys.argv[1]
-    search_text = sys.argv[2]
-    count = count_occurrences(url, search_text)
-    print(f"The text '{search_text}' was found {count} times in the webpage '{url}'.")
+if __name__ == "__main__":
+    app.run(debug=True)
