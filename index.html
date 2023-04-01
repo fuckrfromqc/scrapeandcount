@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles.css">
+    <title>Web Scraper</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Web Scraper</h1>
+        <form action="/" method="POST">
+            <label for="url">URL:</label>
+            <input type="url" name="url" id="url" required>
+            <label for="search_text">Search Text:</label>
+            <input type="text" name="search_text" id="search_text" required>
+            <button type="submit">Count Occurrences</button>
+        </form>
+        {% if count is not none %}
+        <div class="result">
+            The text '{{ request.form['search_text'] }}' was found {{ count }} times in the webpage '{{ request.form['url'] }}'.
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
