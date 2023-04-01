@@ -9,6 +9,9 @@
 <body>
     <div class="container">
         <h1>Web Scraper</h1>
+        <p class="intro">
+            In the ever-growing digital age, the ability to quickly analyze and understand web content is essential. Our groundbreaking Web Scraper tool provides users with the power to effortlessly count occurrences of specific words or phrases on any webpage. By enabling users to gather valuable insights at the click of a button, this innovative tool is revolutionizing the way we interact with the vast expanse of information available on the internet.
+        </p>
         <form action="/" method="POST">
             <label for="url">URL:</label>
             <input type="url" name="url" id="url" required>
@@ -18,7 +21,7 @@
         </form>
         {% if count is not none %}
         <div class="result">
-            The text '{{ request.form['search_text'] }}' was found {{ count }} times in the webpage '{{ request.form['url'] }}'.
+            The text <strong>{{ request.form['search_text'] }}</strong> was found {{ count }} times in the webpage <a href="{{ request.form['url'] }}" target="_blank">{{ request.form['url'] }}</a>.
         </div>
         {% endif %}
     </div>
